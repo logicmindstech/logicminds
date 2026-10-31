@@ -2,7 +2,7 @@
   "name": "LogicMinds Digital Vault",
   "short_name": "LogicMinds",
   "description": "Premium engineered layout architectures, wireframes, and conversion pipelines.",
-  "start_url": "/index.html",
+  "start_url": "https://logicmindstech.github.io/logicminds/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#000000",
