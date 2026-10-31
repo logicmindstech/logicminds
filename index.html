@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogicMinds | Premium Web Templates</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        /* Strict Color System Rules */
+        :root {
+            --bg-pitch-black: #000000;
+            --highlight-tangerine: #FF6600;
+            --text-ash-gray: #B3B3B3;
+            --card-surface: #0A0A0A;
+            --border-dark: #111111;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-pitch-black);
+            color: var(--text-ash-gray);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-pitch-black);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222222;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--highlight-tangerine);
+        }
+
+        /* Navigation Header Overlay */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-dark);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--highlight-tangerine);
+        }
+
+        .install-btn {
+            background: transparent;
+            border: 2px solid var(--highlight-tangerine);
+            color: var(--highlight-tangerine);
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .install-btn:hover {
+            background: var(--highlight-tangerine);
+            color: var(--bg-pitch-black);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
+        }
+
+        /* Hero Container Area */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            margin-top: 70px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 550px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--highlight-tangerine);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-ash-gray);
+        }
+
+        .hero-btn {
+            background: var(--highlight-tangerine);
+            color: var(--bg-pitch-black);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(255, 102, 0, 0.6);
+        }
+		
+		        /* Geometric Network Canvas Overlay positioning */
+        .hero-canvas-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 55%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Main Catalog / Tab Menu Section */
+        .catalog-container {
+            padding: 5rem 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #FFFFFF;
+            margin-bottom: 3rem;
+        }
+
+        .section-title span {
+            color: var(--highlight-tangerine);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: #111111;
+            color: var(--text-ash-gray);
+            border: 1px solid #222222;
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: transparent;
+            border-color: var(--highlight-tangerine);
+            color: var(--highlight-tangerine);
+        }
+
+        /* 3-Column Asset Display Grid */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .template-card {
+            background: var(--card-surface);
+            border: 1px solid var(--border-dark);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 102, 0, 0.3);
+        }
+
+        .template-mockup {
+            height: 200px;
+            background: #111111;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #1A1A1A;
+            overflow: hidden;
+        }
+
+        .mockup-wireframe {
+            width: 80%;
+            height: 70%;
+            border: 2px solid #222222;
+            border-radius: 4px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mockup-line {
+            height: 6px;
+            background: #222222;
+            border-radius: 2px;
+            width: 100%;
+        }
+
+        .mockup-line.accent {
+            background: rgba(255, 102, 0, 0.2);
+            width: 40%;
+        }
+
+        .template-card:hover .mockup-wireframe {
+            border-color: rgba(255, 102, 0, 0.2);
+        }
+        
+        .template-card:hover .mockup-line.accent {
+            background: rgba(255, 102, 0, 0.5);
+        }
+
+        .template-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-tag {
+            color: var(--highlight-tangerine);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-title {
+            color: #FFFFFF;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .template-desc {
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #111111;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.7rem;
+            border: 1px solid #222222;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: var(--highlight-tangerine);
+            color: var(--bg-pitch-black);
+            border-color: var(--highlight-tangerine);
+        }
+
+            /* High-Response Footer Navigation Hover Animation States */
+        .footer-interactive-link:hover {
+            transform: translateY(-3px); /* Snaps item upward smoothly */
+            color: #FFFFFF !important;   /* Brightens typography instantly */
+            text-decoration: none !important; /* Enforces clean styling with zero text lines */
+        }
+
+
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding-top: 5rem;
+                min-height: auto;
+                padding-bottom: 3rem;
+            }
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 2rem;
+            }
+            .hero-canvas-container {
+                position: relative;
+                width: 100%;
+                height: 350px;
+                margin-top: 1rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav>
+        <div class="logo">Logic<span>Minds</span></div>
+        <button class="install-btn" id="installBtn">Install App</button>
+    </nav>
+
+    <!-- Hero Showcase Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Engineered <span>Web Assets</span> For High Conversion.</h1>
+            <p>Sleek, highly responsive layout logic structured perfectly for modern ecosystems. Claim your free engineering files across any category below.</p>
+            <button class="hero-btn" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">Browse Core Assets</button>
+        </div>
+        <div class="hero-canvas-container">
+            <canvas id="heroCanvas"></canvas>
+        </div>
+    </section>
+
+    <section class="catalog-container" id="catalog">
+        <h2 class="section-title">Free <span>Engineered Templates</span></h2>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchCategory('all', this)">All Blueprints</button>
+            <button class="tab-btn" onclick="switchCategory('website', this)">Websites</button>
+            <button class="tab-btn" onclick="switchCategory('blog', this)">Blog Pages</button>
+            <button class="tab-btn" onclick="switchCategory('landing', this)">Landing Pages</button>
+            <button class="tab-btn" onclick="switchCategory('funnel', this)">Funnels</button>
+        </div>
+
+        <!-- ESSENTIAL ELEMENT: This fixes the empty layout error -->
+        <div class="templates-grid" id="grid"></div>
+    </section>
+	
+	    <!-- Sleek Lead Capture Modal Window -->
+    <div id="captureModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; backdrop-filter:blur(8px); align-items:center; justify-content:center;">
+        <div style="background:#0A0A0A; border:1px solid #111; border-top:4px solid #FF6600; padding:2.5rem; max-width:420px; width:90%; border-radius:6px; position:relative;">
+
+            <!-- Close Trigger Button -->
+            <button onclick="closeCaptureModal()" style="position:absolute; top:15px; right:15px; background:transparent; border:none; color:#B3B3B3; font-size:1.3rem; cursor:pointer; font-weight:700;">&times;</button>
+            
+            <h3 style="color:#FFFFFF; font-size:1.5rem; font-weight:800; margin-bottom:0.5rem; letter-spacing:0.5px;">Unlock Your <span>Blueprint</span></h3>
+            <p style="color:#B3B3B3; font-size:0.9rem; margin-bottom:1.5rem;">Enter your system parameters below to initialize the direct secure file download transfer.</p>
+            
+            <form id="leadCaptureForm" onsubmit="processLeadDownload(event)">
+                <label style="color:#FF6600; font-size:0.75rem; text-transform:uppercase; font-weight:700; letter-spacing:1px; display:block; margin-bottom:5px;">Identity Name</label>
+                <input type="text" id="leadName" required placeholder="e.g., John Doe" style="width:100%; padding:12px; background:#111; border:1px solid #222; border-radius:4px; color:#FFF; margin-bottom:1.2rem; font-size:0.95rem;" onfocus="this.style.borderColor='#FF6600'" onblur="this.style.borderColor='#222'">
+                
+                <label style="color:#FF6600; font-size:0.75rem; text-transform:uppercase; font-weight:700; letter-spacing:1px; display:block; margin-bottom:5px;">Network Mail Node</label>
+                <input type="email" id="leadEmail" required placeholder="name@company.com" style="width:100%; padding:12px; background:#111; border:1px solid #222; border-radius:4px; color:#FFF; margin-bottom:1.2rem; font-size:0.95rem;" onfocus="this.style.borderColor='#FF6600'" onblur="this.style.borderColor='#222'">
+                
+                <label style="color:#FF6600; font-size:0.75rem; text-transform:uppercase; font-weight:700; letter-spacing:1px; display:block; margin-bottom:5px;">Phone Connection</label>
+                <input type="tel" id="leadPhone" required placeholder="+1 (555) 000-0000" style="width:100%; padding:12px; background:#111; border:1px solid #222; border-radius:4px; color:#FFF; margin-bottom:1.5rem; font-size:0.95rem;" onfocus="this.style.borderColor='#FF6600'" onblur="this.style.borderColor='#222'">
+                
+                <button type="submit" style="width:100%; padding:14px; background:#FF6600; color:#000000; border:none; border-radius:4px; font-weight:800; font-size:1rem; cursor:pointer; text-transform:uppercase; letter-spacing:0.5px; transition:transform 0.2s ease;">Authorize & Download</button>
+            </form>
+        </div>
+    </div>
+	
+	<!-- Upgraded Ultra-Secure Scrollable Notebook Content Modal Engine -->
+    <div id="contentModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; backdrop-filter:blur(8px); align-items:center; justify-content:center;">
+        <div style="background:#0A0A0A; border:1px solid #111; border-left:3px solid #FF6600; padding:2.5rem; max-width:600px; width:90%; border-radius:0 6px 6px 0; position:relative; box-shadow:0 15px 40px rgba(0,0,0,0.6);">
+            
+            <!-- Close Trigger Button -->
+            <button onclick="closeContentModal()" style="position:absolute; top:15px; right:15px; background:transparent; border:none; color:#B3B3B3; font-size:1.3rem; cursor:pointer; font-weight:700;">&times;</button>
+            
+            <!-- Fixed Height Fluid Notebook Scroller -->
+            <div style="max-height:65vh; overflow-y:auto; padding-right:15px; color:#B3B3B3; font-family:'Segoe UI', sans-serif; font-size:0.95rem; line-height:1.7;">
+                
+                <!-- Drawer 1: About Us View Node -->
+                <div id="notebook-about" class="notebook-drawer" style="display:none;">
+                    <h3 style="color:#FFFFFF; font-size:1.6rem; font-weight:800; margin-bottom:1.5rem; letter-spacing:0.5px;">About <span style="color:#FF6600;">LogicMinds</span></h3>
+                    <h4 style="color:#FF6600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; font-weight:700;">// Our Core Mission</h4>
+                    <p style="margin-bottom:1.5rem;">At LogicMinds, our mission is to eliminate unoptimized web design layout choices. We equip builders, creators, and business minds with raw, lightweight, and mathematically balanced layout assets that maximize online customer conversions effortlessly.</p>
+                    <h4 style="color:#FF6600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; font-weight:700;">// Vision Blueprint</h4>
+                    <p style="margin-bottom:1.5rem;">To engineer a unified global repository of high-attribution web assets where robust site scaffolding, clear content hierarchies, and speed-optimized landing systems are available instantly at the click of a button.</p>
+                    <h4 style="color:#FF6600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; font-weight:700;">// Primary Purpose</h4>
+                    <p style="margin-bottom:1.5rem;">We strip away unnecessary visual bloat from web layouts. By structuring solutions with a clean pitch-black focus environment, vibrant tangerine calls to action, and ash-gray documentation readability, we allow product value strategy to take center stage.</p>
+                    <h4 style="color:#FF6600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; font-weight:700;">// Data Privacy Protocol</h4>
+                    <p style="margin-bottom:2rem;">Your information data vectors are handled with absolute protocol discretion. We capture parameters (name, email, connection node numbers) strictly to track pipeline authorization layers. We never distribute, sell, or compromise your parameters inside secondary market spaces.</p>
+                    <div style="border-top:1px solid #111; padding-top:1.5rem; text-align:right; font-size:0.8rem; font-weight:700; color:#FF6600; letter-spacing:1px; text-transform:uppercase;">by: the FOUNDER</div>
+                </div>
+
+                <!-- Drawer 2: Contact Us View Node -->
+                <div id="notebook-contact" class="notebook-drawer" style="display:none;">
+                    <h3 style="color:#FFFFFF; font-size:1.6rem; font-weight:800; margin-bottom:1.5rem; letter-spacing:0.5px;">Contact <span style="color:#FF6600;">LogicMinds</span></h3>
+                    <h4 style="color:#FF6600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; font-weight:700;">// System Communications</h4>
+                    <p style="margin-bottom:1.5rem;">Have questions regarding pipeline customization, custom framework integrations, or corporate layout licensing models? Our connection relays are monitored continuously to ensure rapid assistance loops.</p>
+                    <h4 style="color:#FF6600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; font-weight:700;">// Core Support Hub</h4>
+                    <p style="margin-bottom:1.5rem;">For direct framework support queries, bug diagnostics, or layout adjustments, drop a secure packet transmission to our primary communication inbox at: <br><strong style="color:#FFFFFF;">support@logicminds.com</strong></p>
+                    <h4 style="color:#FF6600; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; font-weight:700;">// Response Protocols</h4>
+                    <p style="margin-bottom:2rem;">All inbound communication data signals are thoroughly analyzed and prioritized by our core dev teams. Standard engineering diagnostic replies compile and ship within 12 to 24 operational timeline hours.</p>
+                    <div style="border-top:1px solid #111; padding-top:1.5rem; text-align:right; font-size:0.8rem; font-weight:700; color:#FF6600; letter-spacing:1px; text-transform:uppercase;">by: the FOUNDER</div>
+                </div>
+
+                <!-- Drawer 3: FAQ View Node -->
+                <div id="notebook-faq" class="notebook-drawer" style="display:none;">
+                    <h3 style="color:#FFFFFF; font-size:1.6rem; font-weight:800; margin-bottom:1.5rem; letter-spacing:0.5px;">System <span style="color:#FF6600;">FAQ</span></h3>
+                    <div style="margin-bottom:1.5rem;">
+                        <p style="color:#FFFFFF; font-weight:700; margin-bottom:5px;">Q: Are these blueprint skeletons actually free forever?</p>
+                        <p>A: Yes. All 12 initial baseline layout scaffolds can be kept, customized, and deployed commercialized without any recurring subscription metrics.</p>
+                    </div>
+                    <div style="margin-bottom:1.5rem;">
+                        <p style="color:#FFFFFF; font-weight:700; margin-bottom:5px;">Q: Do I need a special server framework to use these templates?</p>
+                        <p>A: No. Every downloaded wireframe asset compiles as a self-contained, pure single-file asset containing integrated layout logic. It runs instantly inside any system browser.</p>
+                    </div>
+                    <div style="margin-bottom:1.5rem;">
+                        <p style="color:#FFFFFF; font-weight:700; margin-bottom:5px;">Q: Can I merge these layouts into existing WordPress or Webflow grids?</p>
+                        <p>A: Absolutely. The generated code layers follow clean 12-column CSS layouts, making it highly compatible for copy-pasting into custom code blocks anywhere.</p>
+                    </div>
+                    <div style="margin-bottom:2rem;">
+                        <p style="color:#FFFFFF; font-weight:700; margin-bottom:5px;">Q: How do I change the form to talk to my personal database?</p>
+                        <p>A: Simply open up the file, locate the primary HTML form tag, and update the target URL attribute to map right onto your backend system api endpoint.</p>
+                    </div>
+                    <div style="border-top:1px solid #111; padding-top:1.5rem; text-align:right; font-size:0.8rem; font-weight:700; color:#FF6600; letter-spacing:1px; text-transform:uppercase;">by: the FOUNDER</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+            <!-- Corrected LogicMinds Split Action Footer Section -->
+    <footer style="border-top:1px solid #111111; padding:3rem 5%; position:relative; z-index:10; background:#000000;">
+        <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
+            
+            <!-- Left Side Branding Text Row -->
+            <div style="font-size:0.9rem; color:#B3B3B3; font-family:'Segoe UI', sans-serif;">
+                &copy; 2026 
+                <button onclick="openContentModal('about')" class="footer-interactive-link" style="background:transparent; border:none; padding:0; font-size:0.9rem; font-weight:700; color:#FFFFFF; text-decoration:none; cursor:pointer; transition:transform 0.2s ease, color 0.2s ease;">
+                    Logic<span style="color:#FF6600;">Minds</span>
+                </button> 
+                | Asset Vault
+            </div>
+
+            <!-- Right Side Utility Navigation Button Menu Blocks -->
+            <div style="display:flex; gap:2rem; font-family:'Segoe UI', sans-serif; font-size:0.9rem; font-weight:600;">
+                <button onclick="openContentModal('about')" class="footer-interactive-link" style="background:transparent; border:none; padding:0; font-size:0.9rem; font-weight:600; color:#B3B3B3; text-decoration:none; cursor:pointer; transition:transform 0.2s ease, color 0.2s ease;">About Us</button>
+                <button onclick="openContentModal('contact')" class="footer-interactive-link" style="background:transparent; border:none; padding:0; font-size:0.9rem; font-weight:600; color:#B3B3B3; text-decoration:none; cursor:pointer; transition:transform 0.2s ease, color 0.2s ease;">Contact Us</button>
+                <button onclick="openContentModal('faq')" class="footer-interactive-link" style="background:transparent; border:none; padding:0; font-size:0.9rem; font-weight:600; color:#B3B3B3; text-decoration:none; cursor:pointer; transition:transform 0.2s ease, color 0.2s ease;">FAQ</button>
+            </div>
+
+        </div>
+    </footer>
+
+	
+	    <script>
+        // ========================================================
+        // 1. MASTER WIREFRAME OUTPUT LAYOUT BLUEPRINTS
+        // ========================================================
+        const websiteTemplate = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Premium Website Framework</title><style>:root{--bg-pitch-black:#000;--highlight-tangerine:#F60;--text-ash-gray:#B3B3B3;--surface-card:#0A0A0A;--border-dark:#1A1A1A}*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}body{background-color:var(--bg-pitch-black);color:var(--text-ash-gray);padding:20px}.grid-container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);gap:20px}header{grid-column:span 12;display:flex;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--border-dark)}.brand{font-weight:800;color:#fff}.brand span{color:var(--highlight-tangerine)}.hero-showcase{grid-column:span 12;background:var(--surface-card);border:1px solid var(--border-dark);padding:60px;text-align:center;border-radius:8px}h1{color:#fff;margin-bottom:15px}.feature-card{grid-column:span 4;background:var(--surface-card);border:1px solid var(--border-dark);padding:25px;border-radius:6px}</style></head><body><div class="grid-container"><header><div class="brand">Blueprint<span>Engine</span></div></header><section class="hero-showcase"><h1>Engineered 12-Column <span>Grid Blueprint</span></h1><p>Production ready corporate grid framework.</p></section><div class="feature-card"><h3>Modular Grid</h3><p>Calculated structural item spacing layout configurations.</p></div><div class="feature-card"><h3>Adaptive Content</h3><p>Fluid asset components scale cleanly across configurations.</p></div><div class="feature-card"><h3>High Retention</h3><p>Tangerine focus fields target conversion actions.</p></div></div></body></html>`;
+
+        const blogTemplate = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Premium Blog System</title><style>:root{--bg-pitch-black:#000;--highlight-tangerine:#F60;--text-ash-gray:#B3B3B3;--surface-card:#0A0A0A;--border-dark:#1A1A1A}body{background-color:var(--bg-pitch-black);color:var(--text-ash-gray);font-family:Georgia,serif;padding:40px 20px;line-height:1.8}.container{max-width:800px;margin:0 auto}header{border-bottom:1px solid var(--border-dark);padding-bottom:30px;margin-bottom:40px}.tag{color:var(--highlight-tangerine);text-transform:uppercase;font-size:0.8rem;letter-spacing:2px}h1{color:#fff;font-size:2.8rem;margin-top:10px}.article{font-size:1.15rem}.article p::first-letter{font-size:3rem;color:var(--highlight-tangerine);float:left;margin-right:8px;line-height:1}</style></head><body><div class="container"><header><span class="tag">Editorial Node //</span><h1>Premium Editorial Article Skeleton</h1></header><main class="article"><p>This layout engine establishes optimized typography ratios built strictly for human content digestion loops across screen scales.</p></main></div></body></html>`;
+
+        const landingTemplate = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Premium Landing Architecture</title><style>:root{--bg-pitch-black:#000;--highlight-tangerine:#F60;--text-ash-gray:#B3B3B3;--surface-card:#0A0A0A;--border-dark:#1A1A1A}body{background-color:var(--bg-pitch-black);color:var(--text-ash-gray);font-family:sans-serif;padding:60px 5%}.wrapper{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center}h1{color:#fff;font-size:3rem;line-height:1.1}h1 span{color:var(--highlight-tangerine)}.card{background:var(--surface-card);border:1px solid var(--border-dark);padding:30px;border-radius:8px}.input-node{width:100%;padding:12px;background:#111;border:1px solid var(--border-dark);color:#fff;margin-bottom:15px;border-radius:4px}.btn{width:100%;padding:12px;background:var(--highlight-tangerine);border:none;font-weight:700;cursor:pointer}</style></head><body><div class="wrapper"><div><h1>Engineered To Maximize <span>Conversion Hooks</span></h1><p style="margin-top:15px;color:#888;"> Solitary focus map layout removing standard navigation options.</p></div><div class="card"><h3>Initialize Capture</h3><input type="email" placeholder="Network Mail Node" class="input-node"><button class="btn">Authorize Node</button></div></div></body></html>`;
+
+        const funnelTemplate = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Premium Funnel Architecture</title><style>:root{--bg-pitch-black:#000;--highlight-tangerine:#F60;--text-ash-gray:#B3B3B3;--surface-card:#0A0A0A;--border-dark:#1A1A1A}body{background-color:var(--bg-pitch-black);color:var(--text-ash-gray);font-family:sans-serif;padding:60px 5%}.container{max-width:700px;margin:0 auto}.steps{display:flex;justify-content:space-between;margin-bottom:40px;border-bottom:1px solid var(--border-dark);padding-bottom:20px}.step{font-weight:700;color:#444}.step.active{color:var(--highlight-tangerine)}h1{color:#fff;text-align:center;margin-bottom:30px}.bump{background:var(--surface-card);border:2px dashed var(--highlight-tangerine);padding:20px;margin-bottom:30px;border-radius:6px}.btn{width:100%;padding:16px;background:var(--highlight-tangerine);border:none;font-weight:800;font-size:1.1rem;cursor:pointer;text-transform:uppercase}</style></head><body><div class="container"><div class="steps"><div class="step active">01 / Qualify</div><div class="step active">02 / Pipeline</div><div class="step">03 / Access</div></div><h1>Review Pipeline Configuration</h1><div class="bump">⚡ ORDER BUMP: Inject unminified global wireframe assets source packages.</div><button class="btn">Secure Architecture Link</button></div></body></html>`;
+
+        // ========================================================
+        // 2. PRODUCT STORE DATA DATABASE
+        // ========================================================
+        const templates = [
+            { id: 1, type: 'website', name: 'Nexus Corporate Engine', desc: 'A minimalist 12-column layout grid built for heavy enterprise tracking metrics.' },
+            { id: 2, type: 'website', name: 'Vortex Portfolio Framework', desc: 'Asynchronous asset grids optimized for fast media distribution showcases.' },
+            { id: 3, type: 'website', name: 'Quantum Commerce Shell', desc: 'Complete structural e-commerce scaffolding with native schema tags built in.' },
+            { id: 4, type: 'blog', name: 'Monolith Editorial Core', desc: 'Strict typography hierarchies built specifically for prolonged human reading cycles.' },
+            { id: 5, type: 'blog', name: 'Pulse Micro-Journal Stack', desc: 'Ultra-lightweight static file structure optimized for speedy reading nodes.' },
+            { id: 6, type: 'blog', name: 'Chronicle Grid Scheme', desc: 'Magazine-tier visual multi-column structural arrays designed for rich assets.' },
+            { id: 7, type: 'landing', name: 'Apex Software Matrix', desc: 'High-contrast app showcase structures designed for immediate click attribution.' },
+            { id: 8, type: 'landing', name: 'Horizon Event Deck', desc: 'Clean chronological schedule displays and explicit reservation fields.' },
+            { id: 9, type: 'landing', name: 'Specter Product Launcher', desc: 'Single physical product canvas utilizing stark spatial focus maps.' },
+            { id: 10, type: 'funnel', name: 'Ascent 3-Stage Pipeline', desc: 'Optimized landing-to-checkout sequence designed to bypass pipeline leakages.' },
+            { id: 11, type: 'funnel', name: 'Synergy Lead Engine', desc: 'Value-hook layout loops that feed clean parameters directly into your database.' },
+            { id: 12, type: 'funnel', name: 'Matrix High-Ticket Pipeline', desc: 'Multi-step contextual qualification blocks constructed for premium vetting pools.' }
+        ];
+		
+		// ========================================================
+        // 3. CATALOG RENDERING LOOP ENGINE
+        // ========================================================
+        function renderTemplates(filter = 'all') {
+            const grid = document.getElementById('grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            
+            const targetItems = filter === 'all' ? templates : templates.filter(t => t.type === filter);
+            
+            targetItems.forEach(item => {
+                let selectedLayoutSource = "";
+                
+                if (item.type === 'website') {
+                    selectedLayoutSource = websiteTemplate.replace('Premium Website Framework', item.name);
+                } else if (item.type === 'blog') {
+                    selectedLayoutSource = blogTemplate.replace('Premium Blog System', item.name);
+                } else if (item.type === 'landing') {
+                    selectedLayoutSource = landingTemplate.replace('Premium Landing Architecture', item.name);
+                } else if (item.type === 'funnel') {
+                    selectedLayoutSource = funnelTemplate.replace('Premium Funnel Architecture', item.name);
+                } else {
+                    selectedLayoutSource = `<!-- Sandbox: ${item.name} --><html><body style="background:#000;color:#B3B3B3"><h1>${item.name}</h1></body></html>`;
+                }
+
+                const dataUri = 'data:text/html;charset=utf-8,' + encodeURIComponent(selectedLayoutSource);
+
+                const card = document.createElement('div');
+                card.className = 'template-card';
+                card.innerHTML = `
+                    <div class="template-mockup">
+                        <div class="mockup-wireframe">
+                            <div class="mockup-line accent"></div>
+                            <div class="mockup-line"></div>
+                            <div class="mockup-line" style="width: 85%"></div>
+                            <div class="mockup-line" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-tag">${item.type} blueprint</div>
+                        <div class="template-title">${item.name}</div>
+                        <div class="template-desc">${item.desc}</div>
+                        <button onclick="openCaptureModal(\`${dataUri}\`, \`${item.name.toLowerCase().replace(/\s+/g, '-')}-blueprint.html\`)" 		class="download-btn" style="width:100%; cursor:pointer;">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+							Get Free HTML File
+                        </button>
+
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function switchCategory(category, buttonEl) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            buttonEl.classList.add('active');
+            renderTemplates(category);
+        }
+		
+		        // ========================================================
+        // 1. LEAD CAPTURE MODAL RUNTIME CONTROLLER
+        // ========================================================
+        let pendingDownloadUri = "";
+        let pendingDownloadFilename = "";
+
+        function openCaptureModal(uri, filename) {
+            pendingDownloadUri = uri;
+            pendingDownloadFilename = filename;
+            
+            const modal = document.getElementById('captureModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeCaptureModal() {
+            const modal = document.getElementById('captureModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+            document.getElementById('leadCaptureForm').reset();
+        }
+
+        function processLeadDownload(event) {
+            event.preventDefault(); // Prevent page refresh
+            
+            // ILAGAY MO DITO ANG IYONG SECURE GOOGLE WEB APP DEPLOYMENT URL LINK:
+            const GOOGLE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzVWPaRatN-gcbWoQ_RFTM5EwTh23gI41Uhnw4o5AKcxVVPHRV7dtCokRyRfL8dM00y/exec";
+            
+            const leadData = {
+                name: document.getElementById('leadName').value,
+                email: document.getElementById('leadEmail').value,
+                phone: document.getElementById('leadPhone').value,
+                template: pendingDownloadFilename
+            };
+
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Securing Connection...";
+            submitBtn.disabled = true;
+
+            fetch(GOOGLE_WEBHOOK_URL, {
+                method: "POST",
+                mode: "no-cors", 
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(leadData)
+            })
+            .then(() => {
+                const hiddenLink = document.createElement('a');
+                hiddenLink.href = pendingDownloadUri;
+                hiddenLink.download = pendingDownloadFilename;
+                document.body.appendChild(hiddenLink);
+                hiddenLink.click();
+                document.body.removeChild(hiddenLink);
+                
+                closeCaptureModal();
+            })
+            .catch(err => {
+                console.error("Pipeline Transmission Error:", err);
+                alert("Network timeout. Transfer execution bypassed.");
+            })
+            .finally(() => {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        }
+
+        // ========================================================
+        // 2. NOTEBOOK CONTENT MODAL DRAWERS CONTROLLER
+        // ========================================================
+        function openContentModal(drawerId) {
+            // Siguraduhing sarado muna ang parehong modal elements para walang stacking crash
+            const contentModal = document.getElementById('contentModal');
+            const captureModal = document.getElementById('captureModal');
+            
+            if (captureModal) captureModal.style.display = 'none';
+            if (contentModal) contentModal.style.display = 'none';
+
+            // Itago muna ang lahat ng notebook sub-drawers (.notebook-drawer)
+            document.querySelectorAll('.notebook-drawer').forEach(drawer => {
+                drawer.style.display = 'none';
+            });
+            
+            // Hanapin at buksan ang napiling notebook section (about, contact, o faq)
+            const targetDrawer = document.getElementById('notebook-' + drawerId);
+            if (targetDrawer && contentModal) {
+                targetDrawer.style.display = 'block';
+                contentModal.style.display = 'flex';
+                targetDrawer.parentElement.scrollTop = 0; // I-reset ang scroll bar sa pinakataas
+            }
+        }
+
+        function closeContentModal() {
+            const contentModal = document.getElementById('contentModal');
+            if (contentModal) {
+                contentModal.style.display = 'none';
+            }
+        }
+
+        // ========================================================
+        // 4. ANIMATION NETWORK CANVAS ENGINE
+        // ========================================================
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationFrameId;
+
+        function scaleCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth || (window.innerWidth * 0.55);
+            canvas.height = container.clientHeight || (window.innerHeight * 0.85);
+        }
+
+        let points = [];
+        function createNetworkNodes() {
+            points = [];
+            const maxNodes = window.innerWidth < 600 ? 25 : 55;
+            for(let i=0; i < maxNodes; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    radius: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function drawNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(179, 179, 179, 0.05)';
+            ctx.lineWidth = 1;
+            for(let i=0; i<points.length; i++) {
+                for(let j=i+1; j<points.length; j++) {
+                    const dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
+                    if(dist < 110) {
+                        ctx.strokeStyle = dist < 50 ? 'rgba(255, 102, 0, 0.15)' : 'rgba(179, 179, 179, 0.05)';
+                        ctx.beginPath();
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(points[j].x, points[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            points.forEach(p => {
+                ctx.fillStyle = Math.random() > 0.995 ? '#FF6600' : '#B3B3B3';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.x += p.vx;
+                p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            });
+
+            animationFrameId = requestAnimationFrame(drawNetwork);
+        }
+
+        window.addEventListener('resize', () => {
+            cancelAnimationFrame(animationFrameId);
+            scaleCanvas();
+            createNetworkNodes();
+            drawNetwork();
+        });
+
+        // ========================================================
+        // 5. NATIVE APPLICATION INSTALL INTERCEPTOR
+        // ========================================================
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'block';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                installBtn.style.display = 'none';
+            }
+            deferredPrompt = null;
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('PWA Registered:', reg.scope))
+                    .catch(err => console.error('PWA Fail:', err));
+            });
+        }
+
+        // Initialize Runtime Engine
+        scaleCanvas();
+        createNetworkNodes();
+        drawNetwork();
+        renderTemplates('all');
+    </script>
+</body>
+</html>
+
+
+
+
+
